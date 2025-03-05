@@ -3,11 +3,14 @@
 namespace App\Service\DB;
 
 use Exception;
-use mysqli;
+use PDO;
+use PDOException;
 use Symfony\Component\Dotenv\Dotenv;
 
 class DatabaseManager
 {
+    private ?PDO $connection = null;
+
     public function getEntityManager(): EntityManager
     {
         try {
@@ -21,43 +24,36 @@ class DatabaseManager
     /**
      * @throws Exception
      */
-    public function connect(): mysqli
+    public function connect(): PDO
     {
-        $conn = new mysqli(
-            $this->getDatabaseParameters()['host'],
-            $this->getDatabaseParameters()['user'],
-            $this->getDatabaseParameters()['password']
-        );
-
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
+        if ($this->connection === null) {
+            $dsn = 'mysql:host='.getenv("MYSQL_HOST").';dbname='.getenv("MYSQL_DATABASE").'';
+            $username = getenv("MYSQL_USER");
+            $password = getenv("MYSQL_PASSWORD");
+            try {
+                $this->connection = new PDO($dsn, $username, $password);
+                $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            } catch (PDOException $e) {
+                die("Database connection failed: " . $e->getMessage());
+            }
         }
 
-        $use = 'use ' . $this->getDatabaseParameters()['dbname'] . ';';
-
-        if (!$conn->query($use)) {
-            throw new Exception('Unable to use this database');
-        }
-
-        return $conn;
+        return $this->connection;
     }
 
-    public function getDatabaseParameters(): array
-    {
-        $dotenv = new Dotenv();
-        try {
-            $dotenv->loadEnv(__DIR__ . '/../../../.env');
-        } catch (Exception $e) {
-            var_dump($e);
-        }
+    // private function getDatabaseParameters(): array
+    // {
+    //     $dotenv = new Dotenv();
+    //     try {
+    //         $dotenv->loadEnv(__DIR__ . '/../../../.env');
+    //     } catch (Exception $e) {
+    //         var_dump($e);
+    //     }
 
-        return [
-            'driver' => $_ENV['DB_DRIVER'],
-            'user' => $_ENV['DB_USER'],
-            'password' => $_ENV['DB_PASSWORD'],
-            'dbname' => $_ENV['DB_NAME'],
-            'host' => $_ENV['DB_HOST'],
-            'port' => $_ENV['DB_PORT'],
-        ];
-    }
+    //     return [
+    //         'user'     => "root",
+    //         'password' => "rootpassword",
+    //         'dbname'   => "bddexampls",
+    //     ];
+    // }
 }

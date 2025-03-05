@@ -1,5 +1,4 @@
 <?php
-
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use App\DependencyInjection\ContainerManager;
@@ -13,6 +12,8 @@ if (php_sapi_name() !== 'cli' && preg_match('/\.(ico|png|jpg|jpeg|css|js|gif)$/'
 try {
     $containerManager = new ContainerManager();
     $router = new Router($containerManager->buildContainer());
+    session_start();
+
 } catch (Exception $e) {
     var_dump($e);
     exit();
@@ -30,7 +31,6 @@ if (php_sapi_name() === 'cli') {
     'REQUEST_METHOD' => $httpMethod
 ] = $_SERVER;
 
-session_start();
 $_SESSION["flashbag"] = [];
 
 try {

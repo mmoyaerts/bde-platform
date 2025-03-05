@@ -18,7 +18,7 @@
   ],
   "license": "CC-BY-NC-SA-2.0-FR",
   "scripts": {
-    "ss": "php -S localhost:8000 -t public/ public/index.php",
+    "ss": "php -S localhost:8001 -t public/ public/index.php",
     "tests": "./vendor/bin/phpunit tests --display-warnings --colors=always --columns=max"
   },
   "config": {

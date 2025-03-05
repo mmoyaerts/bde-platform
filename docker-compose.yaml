@@ -1,0 +1,28 @@
+services:
+  web:
+    build:
+      dockerfile: Dockerfile
+    container_name: bde-platform
+    volumes:
+      - ./:/var/www/html
+    ports:
+      - "8081:8001"
+    env_file:
+      - .env
+    depends_on:
+      - bdd
+    command: sh -c "composer install && php -S 0.0.0.0:8001 -t public/ public/index.php"
+
+  bdd:
+    image: mysql:8.0
+    container_name: mysql-db
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./sql-dumps/createdb.sql:/docker-entrypoint-initdb.d/bdd.sql
+      - db_data:/var/lib/mysql
+volumes:
+  db_data:
