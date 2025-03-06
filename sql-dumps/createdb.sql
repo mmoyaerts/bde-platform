@@ -1,5 +1,5 @@
 SET FOREIGN_KEY_CHECKS = 0;
--- Création de la table user
+ALTER DATABASE example_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 DROP TABLE IF EXISTS user;
 CREATE TABLE user
 (
@@ -64,7 +64,7 @@ INSERT INTO user (firstname, lastname, email, password, roles, isVerified, signe
 
 -- Insertion des événements
 INSERT INTO event (name, description, startDate, endDate, tag, capacity, fileName, fileSize, owner_id) VALUES
-('Soirée Étudiante', 'Une grande soirée pour tous les étudiants.', '2025-03-10 20:00:00', '2025-03-11 02:00:00', 'Fête', 100, 'party.jpg', 2.5, 1),
+('Soiree Étudiante', 'Une grande soirée pour tous les étudiants.', '2025-03-10 20:00:00', '2025-03-11 02:00:00', 'Fête', 100, 'party.jpg', 2.5, 1),
 ('Hackathon', 'Un concours de programmation pour les passionnés.', '2025-04-05 09:00:00', '2025-04-06 18:00:00', 'Technologie', 50, "test.jpg", 2.5, 2),
 ('Tournoi de Football', 'Un tournoi pour les amateurs de football.', '2025-05-20 10:00:00', '2025-05-20 18:00:00', 'Sport', 20, 'football.png', 3.2, 3);
 
