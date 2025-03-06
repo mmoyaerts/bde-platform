@@ -90,6 +90,8 @@ class IndexController extends AbstractController
         } else {
             $connectedUser = null;
         }
+        
+        var_dump("caca");
 
         return $this->twig->render('index/home.html.twig', [
             'events' => $events,
