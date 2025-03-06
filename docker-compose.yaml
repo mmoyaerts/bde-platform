@@ -9,9 +9,7 @@ services:
       - .env
     depends_on:
       - bdd
-    command: sh -c "composer install && php -S 0.0.0.0:8001 -t public/ public/index.php"
-    ports:
-      - "8001:8001"
+    command: sh -c "composer install && php -S 0.0.0.0:80 -t public/ public/index.php"
 
   bdd:
     image: mysql:8.0
