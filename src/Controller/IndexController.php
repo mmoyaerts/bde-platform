@@ -95,7 +95,6 @@ class IndexController extends AbstractController
             'events' => $events,
             'capacities' => $capacities,
             'currentUser' => $this->currentUser,
-            'flashbag' => $_SESSION["flashbag"],
             'title' => $title,
             'firstEvent' => $firstEvent,
             'endEvent' => $lastEvent,
