@@ -27,7 +27,7 @@ class DatabaseManager
     public function connect(): PDO
     {
         if ($this->connection === null) {
-            $dsn = 'mysql:host='.getenv("MYSQL_HOST").';dbname='.getenv("MYSQL_DATABASE").'';
+            $dsn = 'mysql:host='.getenv("MYSQL_HOST").';dbname='.getenv("MYSQL_DATABASE").';charset=utf8mb4';
             $username = getenv("MYSQL_USER");
             $password = getenv("MYSQL_PASSWORD");
             try {
