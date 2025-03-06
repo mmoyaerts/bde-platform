@@ -81,7 +81,7 @@ class IndexController extends AbstractController
             $event->setDescription($this->truncate($event->getDescription(), 200, '...'));
         }
 
-        if(!is_null($_SESSION["user_connected"])){
+        if(!isset($_SESSION["user_connected"])){
             $connectedUser = $this->getUserConnected();
             $this->addFlash("success", "Vous êtes bien connecté !");
             $alertManager = new AlertManager;
