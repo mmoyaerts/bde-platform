@@ -91,8 +91,6 @@ class IndexController extends AbstractController
             $connectedUser = null;
         }
         
-        var_dump("caca");
-
         return $this->twig->render('index/home.html.twig', [
             'events' => $events,
             'capacities' => $capacities,
