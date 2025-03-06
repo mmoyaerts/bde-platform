@@ -17,7 +17,7 @@ services:
     ports:
       - 8082:80
     environment:
-      - PMA_HOST=${MARIADB_HOST}
+      - PMA_HOST=${MYSQL_HOST}
     
   bdd:
     image: mysql:8.0
